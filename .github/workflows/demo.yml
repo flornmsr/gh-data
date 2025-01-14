@@ -18,6 +18,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs: # keine Files, nur simple values, welche dann in den verschiedenen Files verfügbar sind
+      script-file: ${{ steps.publish.outputs.something }} #Wenn man den Output in den verschiedenen Jobs braucht, hier wird auf den steps context value zugegriffen
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -25,6 +27,9 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+      - name: Publish JS filename
+        id: publish # die unique id braucht es um vom job aus auf den outbut von diesem Step zugreiffen zu können
+        run: find dist/assets/*.js -type f -execdir echo 'something={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -43,5 +48,7 @@ jobs:
           name: dist-files
       - name: Output contetns
         run: ls
+      - name: Output Filename
+        run: echo "${{ needs.build.outputs.script-file }}"
       - name: Deploy
         run: echo "Deploying..."
