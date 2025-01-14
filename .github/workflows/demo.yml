@@ -29,9 +29,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: | # where to find the files which should be stored. 
-            dist 
-            package.json 
+          path: dist
+          # path: | # where to find the files which should be stored. 
+          #   dist 
+          #   package.json 
   deploy:
     needs: build
     runs-on: ubuntu-latest
