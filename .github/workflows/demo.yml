@@ -26,7 +26,7 @@ jobs:
       - name: Build website
         run: npm run build
       - name: Upload artifacts
-        uses: actions/uload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: dist-files
           path: | # where to find the files which should be stored. 
