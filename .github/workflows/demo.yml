@@ -29,7 +29,7 @@ jobs:
         uses: actions/uload-artifact@v3
         with:
           name: dist-files
-          path: | # where to finde the files which should be stored. 
+          path: | # where to find the files which should be stored. 
             dist 
             package.json 
   deploy:
